@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="content">
-      <Types/>
+      <Types />
     <div class="tags-wrapper">
         <Tags/>
     </div>
