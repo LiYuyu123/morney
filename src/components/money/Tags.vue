@@ -17,13 +17,32 @@
         <Icon name="traffic"></Icon>
         <span>交通</span>
       </li>
+      <li v-for="tag in dataSource" :key="tag"
+          :class="{selected:selectedTags.indexOf(tag)>=0}"
+          @click="toggle(tag)">{{tag}}</li>
+      <li>
+        <Icon name="add"></Icon>
+        <span>新增</span>
+      </li>
       </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'tags'
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+@Component
+export  default class Tags extends Vue {
+  @Prop(Array) dataSource:string[] | undefined
+  selectedTags:string[]=[]
+  toggle(tag:string){
+    const index=this.selectedTags.indexOf(tag)
+    if(index>=0){
+       this.selectedTags.splice(index,1)
+    }else {
+      this.selectedTags.push(tag)
+    }
+  }
 }
 </script>
 
@@ -54,6 +73,10 @@ export default {
       justify-content: center;
       align-items: center;
       padding: 20px 40.8px;
+      &.selected{
+        background: black;
+        color:white;
+      }
     }
 
     .icon {

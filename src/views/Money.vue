@@ -3,7 +3,7 @@
     <section class="content">
       <Types />
     <div class="tags-wrapper">
-        <Tags/>
+        <Tags :data-source="tags"/>
     </div>
     <div class="all-wrapper">
       <Notes />
@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 
 import Types from '@/components/money/Types.vue'
 import Tags from '@/components/money/Tags.vue'
@@ -25,6 +25,11 @@ import NavCancel from '@/components/money/NavCancel.vue'
 export default {
   name: 'Money',
   components: {NavCancel, NumberPad, Notes, Tags, Types},
+  data(){
+    return{
+       tags:['吃饭','睡觉','打游戏']
+    }
+  }
 }
 </script>
 
