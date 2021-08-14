@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ record }}
     <section class="content">
       <Types :value.sync="record.type"/>
       <div class="tags-wrapper">
@@ -24,18 +23,22 @@ import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component, Watch} from 'vue-property-decorator';
 
+
 type Record = {
   tags: string[]
   type: string
   notes: string
   amount: number
+  createAt?:Date
 }
+
+
 @Component({
   components: {NavCancel, NumberPad, Notes, Tags, Types}
 })
 export default class Money extends Vue {
   tags = ['吃饭', '睡觉', '打游戏'];
-  recordList: Record[] = [];
+  recordList: Record[] =JSON.parse( window.localStorage.getItem('recordList') || '[]');
   record: Record = {tags: [], type: '-', notes: '', amount: 0};
 
   onUpdateTags(value: string[]) {
@@ -52,6 +55,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     const record2=JSON.parse(JSON.stringify(this.record)) //深拷贝
+    record2.createAt=new Date()
     this.recordList.push(record2);
     console.log(this.recordList);
   }
