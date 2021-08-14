@@ -1,44 +1,61 @@
 <template>
   <div>
+    {{record}}
     <section class="content">
-      <Types />
-    <div class="tags-wrapper">
-        <Tags :data-source="tags"/>
-    </div>
-    <div class="all-wrapper">
-      <Notes />
-      <NumberPad />
-      <NavCancel/>
-    </div>
+      <Types :value.sync="record.type"/>
+      <div class="tags-wrapper">
+        <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+      </div>
+      <div class="all-wrapper">
+        <Notes @update:value="onUpdateNotes"/>
+        <NumberPad @update:value="onUpdateAmount"/>
+        <NavCancel/>
+      </div>
     </section>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Types from '@/components/money/Types.vue';
+import Tags from '@/components/money/Tags.vue';
+import Notes from '@/components/money/Notes.vue';
+import NumberPad from '@/components/money/NumberPad.vue';
+import NavCancel from '@/components/money/NavCancel.vue';
+import {Component} from 'vue-property-decorator';
 
-import Types from '@/components/money/Types.vue'
-import Tags from '@/components/money/Tags.vue'
-import Notes from '@/components/money/Notes.vue'
-import NumberPad from '@/components/money/NumberPad.vue'
-import NavCancel from '@/components/money/NavCancel.vue'
+type Record={
+  tags:string[]
+  type:string
+  notes:string
+  amount:number
+}
+@Component({
+  components: {NavCancel, NumberPad, Notes, Tags, Types}
+})
+export default class Money extends Vue {
+  tags = ['吃饭', '睡觉', '打游戏'];
+  record: Record={tags:[],type:'-',notes:'',amount:0}
+  onUpdateTags(value:string[]){
+    this.record.tags=value
+  }
 
-export default {
-  name: 'Money',
-  components: {NavCancel, NumberPad, Notes, Tags, Types},
-  data(){
-    return{
-       tags:['吃饭','睡觉','打游戏']
-    }
+  onUpdateNotes(value:string){
+    this.record.notes=value
+  }
+  onUpdateAmount(value:string){
+    this.record.amount=parseFloat(value)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content{
+.content {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  .tags-wrapper{
+
+  .tags-wrapper {
     flex-grow: 1;
     overflow: auto;
   }
