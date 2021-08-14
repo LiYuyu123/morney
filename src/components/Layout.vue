@@ -15,7 +15,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .layout-wrapper {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   height: 100vh;

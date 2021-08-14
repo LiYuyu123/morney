@@ -23,7 +23,7 @@ import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import model from '@/model.ts';
-import RecordItem from '@/custom.d.ts';
+
 
 
 

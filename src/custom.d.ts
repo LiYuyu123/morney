@@ -6,5 +6,5 @@ type RecordItem = {
     createAt?:Date
 }
 
-export default RecordItem
+
 

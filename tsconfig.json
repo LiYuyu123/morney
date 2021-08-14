@@ -1,3 +1,4 @@
+
 {
   "compilerOptions": {
     "target": "esnext",
@@ -7,7 +8,6 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
