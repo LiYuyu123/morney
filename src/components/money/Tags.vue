@@ -20,7 +20,7 @@
       <li v-for="tag in dataSource" :key="tag"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        <Icon :name="tag.name"></Icon>
+        <Icon :name="tag.name" />
         <span>{{tag.id}}</span>
       </li>
       <li @click="newTag">

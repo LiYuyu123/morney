@@ -6,7 +6,10 @@
         <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
       </div>
       <div class="all-wrapper">
-        <Notes @update:value="onUpdateNotes"/>
+        <Notes field-name="备注"
+               placeholder="写点备注吧"
+               @update:value="onUpdateNotes"
+        />
         <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
         <NavCancel/>
       </div>
