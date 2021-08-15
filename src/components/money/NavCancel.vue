@@ -2,7 +2,6 @@
   <div class="navCancel">
     <router-link to="/labels" class="cancel" >
       <Icon name="cancel"></Icon>
-      取消
     </router-link>
   </div>
 </template>
@@ -26,8 +25,8 @@ export default {
     justify-content: center;
     align-items: center;
     .icon{
-      width: 32px;
-      height: 32px;
+      width: 54px;
+      height: 54px;
     }
   }
 }
