@@ -4,9 +4,9 @@
       <div>明细</div>
     </div>
     <ol class="tags">
-      <li v-for="tag in tags" :key="tag">
-        <span>{{ tag }}</span>
-        <Icon name="right" />
+      <li v-for="tag in tags" :key="tag.id">
+        <span>{{ tag.name }}</span>
+        <Icon :name="tag.name" />
       </li>
     </ol>
     <div class="createTag-wrapper">
