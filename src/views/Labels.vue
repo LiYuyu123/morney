@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <Button class="createTag" @click.native="createTag">新增标签</Button>        <!--.native触发Button对于元素的click数据-->
+      <Button class="createTag" @click="createTag">新增标签</Button>
     </div>
   </Layout>
 </template>

@@ -1,14 +1,17 @@
 <template>
   <div class="navCancel">
-    <router-link to="/labels" class="cancel" >
-      <Icon name="cancel"></Icon>
-    </router-link>
+      <Icon  class="cancel" name="cancel" @click="goBack"></Icon>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'NavCancel'
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+@Component
+export default class navCancel extends Vue{
+goBack(){
+  this.$router.back()
+}
 }
 </script>
 
@@ -19,15 +22,9 @@ export default {
   display: flex;
   justify-content:center ;
   align-items: center;
-  >.cancel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .icon{
+    .cancel{
       width: 54px;
       height: 54px;
     }
   }
-}
 </style>
