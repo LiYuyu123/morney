@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{record}}
     <section class="content">
       <Types :value.sync="record.type"/>
       <div class="tags-wrapper">
