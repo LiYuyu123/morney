@@ -76,6 +76,7 @@ export default class Tags extends Vue {
 }
 
 .tags {
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;

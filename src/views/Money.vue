@@ -5,11 +5,14 @@
       <div class="tags-wrapper">
         <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
       </div>
-      <div class="all-wrapper">
-        <Notes field-name="备注"
-               placeholder="写点备注吧"
-               @update:value="onUpdateNotes"
-        />
+      <div>
+        <div class="notes">
+          <FormItem field-name="备注"
+                    placeholder="写点备注吧"
+                    @update:value="onUpdateNotes"
+          />
+        </div>
+
         <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
         <NavCancel/>
       </div>
@@ -21,7 +24,7 @@
 import Vue from 'vue';
 import Types from '@/components/money/Types.vue';
 import Tags from '@/components/money/Tags.vue';
-import Notes from '@/components/money/Notes.vue';
+import FormItem from '@/components/money/FormItem.vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component, Watch} from 'vue-property-decorator';
@@ -35,7 +38,7 @@ const recordData=recordListModel.fetch()
 const tagList=tagListModel.fetch()
 
 @Component({
-  components: {NavCancel, NumberPad, Notes, Tags, Types}
+  components: {FormItem, NavCancel, NumberPad, Tags, Types}
 })
 export default class Money extends Vue {
   tags=tagList
@@ -78,5 +81,8 @@ export default class Money extends Vue {
     flex-grow: 1;
     overflow: auto;
   }
+}
+.notes{
+  padding: 10px 0;
 }
 </style>

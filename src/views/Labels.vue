@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <button class="createTag" @click="createTag">新增标签</button>
+      <Button class="createTag" @click.native="createTag">新增标签</Button>        <!--.native触发Button对于元素的click数据-->
     </div>
   </Layout>
 </template>
@@ -19,10 +19,12 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel.ts';
+import Button from '@/components/Button.vue';
 
 tagListModel.fetch()
-
-@ Component
+@Component({
+  components: {Button}
+})
 export default class Labels extends Vue {
   tags = tagListModel.data;
 
@@ -50,7 +52,7 @@ export default class Labels extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 24px;
   }
 }
 
@@ -58,7 +60,7 @@ export default class Labels extends Vue {
   background: white;
   font-size: 16px;
   padding-left: 16px;
-
+  margin-top: 8px;
   >.tag {
     min-height: 44px;
     display: flex;
