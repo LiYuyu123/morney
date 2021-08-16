@@ -41,7 +41,7 @@ const tagList=tagListModel.fetch()
   components: {FormItem, NavCancel, NumberPad, Tags, Types}
 })
 export default class Money extends Vue {
-  tags=tagList
+  tags=window.tagList
   recordList: RecordItem[] =recordData
   record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
 

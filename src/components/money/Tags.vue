@@ -21,7 +21,7 @@
           :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
         <Icon :name="tag.name" />
-        <span>{{tag.id}}</span>
+        <span>{{tag.name}}</span>
       </li>
       <li @click="newTag">
         <Icon name="add"></Icon>
