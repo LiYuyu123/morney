@@ -6,14 +6,20 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
+      <FormItem field-name="金额"
+                placeholder="请输入标金额"        />
+      <FormItem field-name="日期"
+                placeholder="请输入标日期"        />
       <FormItem :value="tag.name"
                 @update:value="update"
-                field-name="标签名"
+                field-name="备注"
                 placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button @click="remove">删除标签</Button>
+      <Button  @click="save">保存</Button>
+      <Button class="remove" @click="remove">删除</Button>
     </div>
+
   </Layout>
 
 </template>
@@ -52,9 +58,13 @@ export default class EditLabel extends Vue {
   }
   remove(){
     if(this.tag){
-      tagListModel.remove(this.tag.id)
-      console.log('1')
+      if(tagListModel.remove(this.tag.id)){
+        this.$router.back()
+      }
     }
+  }
+  save(){
+    this.$router.back()
   }
   goBack(){
     this.$router.back()
@@ -94,5 +104,10 @@ export default class EditLabel extends Vue {
   text-align: center;
   padding: 16px;
   margin-top: 44-16px;
+  display: flex;
+  justify-content: space-around;
+  .remove{
+    background: #b62f2f;
+  }
 }
 </style>

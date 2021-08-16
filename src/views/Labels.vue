@@ -66,7 +66,7 @@ export default class Labels extends Vue {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    border-bottom: 1px solid #e6e6e6;
     svg {
       width: 18px;
       height: 18px;
