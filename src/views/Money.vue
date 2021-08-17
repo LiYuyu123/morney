@@ -29,13 +29,12 @@ import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/models/recordListModel';
-import tagListModel from '@/models/tagListModel';
 
 
 
 
 const recordData=recordListModel.fetch()
-const tagList=tagListModel.fetch()
+
 
 @Component({
   components: {FormItem, NavCancel, NumberPad, Tags, Types}
