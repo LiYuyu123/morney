@@ -20,7 +20,7 @@ type TagListModel = {
     save: () => void
 }
 
-interface Window{
-    tagList:Tag[]
+interface Window {
+    tagList: Tag[]
+    createTag: (name: string) => void
 }
-
