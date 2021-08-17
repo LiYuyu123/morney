@@ -27,13 +27,13 @@ import Tags from '@/components/money/Tags.vue';
 import FormItem from '@/components/money/FormItem.vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
-import {Component, Watch} from 'vue-property-decorator';
-import recordListModel from '@/models/recordListModel';
+import {Component} from 'vue-property-decorator';
 
 
 
 
-const recordData=recordListModel.fetch()
+
+
 
 
 @Component({
@@ -41,7 +41,7 @@ const recordData=recordListModel.fetch()
 })
 export default class Money extends Vue {
   tags=window.tagList
-  recordList: RecordItem[] =recordData
+  recordList=window.recordList
   record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
 
   onUpdateTags(value: string[]) {
@@ -57,13 +57,9 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-   recordListModel.create(this.record)
+   window.createRecord(this.record)
   }
 
-  @Watch('recordList')
-  onRecordChanged() {
-   recordListModel.save()
-  }
 }
 </script>
 
