@@ -28,7 +28,7 @@ import FormItem from '@/components/money/FormItem.vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component} from 'vue-property-decorator';
-
+import store from '@/store/index2.ts'
 
 
 
@@ -40,8 +40,8 @@ import {Component} from 'vue-property-decorator';
   components: {FormItem, NavCancel, NumberPad, Tags, Types}
 })
 export default class Money extends Vue {
-  tags=window.tagList
-  recordList=window.recordList
+  tags=store.tagList
+  recordList=store.recordList
   record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
 
   onUpdateTags(value: string[]) {
@@ -57,7 +57,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-   window.createRecord(this.record)
+   store.createRecord(this.record)
   }
 
 }
