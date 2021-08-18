@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="content">
-      <Types :value.sync="record.type"/>
+      <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="tags-wrapper">
         <Tags/>
       </div>
@@ -22,17 +22,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Types from '@/components/money/Types.vue';
+import Tabs from '@/components/Tabs.vue';
 import Tags from '@/components/money/Tags.vue';
 import FormItem from '@/components/money/FormItem.vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component} from 'vue-property-decorator';
+import recordTypeList from '@/constants/recordTypeList';
 
 @Component({
-  components: {FormItem, NavCancel, NumberPad, Tags, Types},
+  components: {FormItem, NavCancel, NumberPad, Tags, Tabs},
 })
 export default class Money extends Vue {
+  recordTypeList=recordTypeList
   get recordList(){
     return this.$store.state.recordList
   }
