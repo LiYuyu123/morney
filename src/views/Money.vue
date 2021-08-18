@@ -3,7 +3,7 @@
     <section class="content">
       <Types :value.sync="record.type"/>
       <div class="tags-wrapper">
-        <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+        <Tags/>
       </div>
       <div>
         <div class="notes">
@@ -28,26 +28,18 @@ import FormItem from '@/components/money/FormItem.vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import NavCancel from '@/components/money/NavCancel.vue';
 import {Component} from 'vue-property-decorator';
-import store from '@/store/index2.ts'
-
-
-
-
-
-
 
 @Component({
-  components: {FormItem, NavCancel, NumberPad, Tags, Types}
+  components: {FormItem, NavCancel, NumberPad, Tags, Types},
 })
 export default class Money extends Vue {
-  tags=store.tagList
-  recordList=store.recordList
-  record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
-
-  onUpdateTags(value: string[]) {
-    this.record.tags = value;
+  get recordList(){
+    return this.$store.state.recordList
   }
-
+  record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
+  created(){
+    this.$store.commit('fetchRecords')
+  }
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
@@ -57,7 +49,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-   store.createRecord(this.record)
+   this.$store.commit('createRecord',this.record)
   }
 
 }

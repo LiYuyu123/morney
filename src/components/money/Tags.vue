@@ -17,13 +17,13 @@
         <Icon name="traffic"></Icon>
         <span>交通</span>
       </li>
-      <li v-for="tag in dataSource" :key="tag"
-          :class="{selected:selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">
+      <li v-for="tag in tagList" :key="tag.id"
+          :class="{selected:selectedTags.indexOf(tag.id)>=0}"
+          @click="toggle(tag.id)">
         <Icon :name="tag.name" />
         <span>{{tag.name}}</span>
       </li>
-      <li @click="newTag">
+      <li @click="createTag">
         <Icon name="add"></Icon>
         <span>新增</span>
       </li>
@@ -32,14 +32,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
+import {mixins} from 'vue-class-component';
+import TagHelper from '@/mixins/tagHelper';
+
 
 @Component
-export default class Tags extends Vue {
-  @Prop(Array) readonly dataSource: string[] | undefined;
+export default class Tags extends mixins(TagHelper) {
+   get tagList(){
+     return this.$store.state.tagList
+   }
   selectedTags: string[] = [];
-
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
@@ -48,15 +51,6 @@ export default class Tags extends Vue {
       this.selectedTags.push(tag);
     }
     this.$emit('update:value',this.selectedTags)
-  }
-
-  newTag() {
-    const name = window.prompt('请输入标签名');
-    if (name === '') {
-      window.alert('标签名不能为空');
-    } else if (this.dataSource) {
-      this.$emit('update:dataSource', [...this.dataSource, name]);
-    }
   }
 }
 </script>
