@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{recordList}}
     <section class="content">
       <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="tags-wrapper">
@@ -12,7 +13,6 @@
                     @update:value="onUpdateNotes"
           />
         </div>
-
         <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
         <NavCancel/>
       </div>
