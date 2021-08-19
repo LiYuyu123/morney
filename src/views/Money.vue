@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <section class="content">
       <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="tags-wrapper">
@@ -47,7 +46,7 @@ export default class Money extends Vue {
     this.$store.commit('fetchTags')
   }
 
-  onUpdateTags(tags:Tag[]){
+  onUpdateTags(tags:string[]){
     this.record.tags=tags
   }
 
@@ -75,9 +74,15 @@ export default class Money extends Vue {
   .tags-wrapper {
     flex-grow: 1;
     overflow: auto;
+    ::v-deep .tags{
+        background:#f5f5f5 ;
+    }
   }
 }
 .notes{
-  padding: 10px 0;
+  ::v-deep .formItem{
+    background: rgb(201, 201, 201);
+  }
 }
+
 </style>

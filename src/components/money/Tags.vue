@@ -1,34 +1,16 @@
 <template>
   <div class="tags">
+    <div class="new">
+      <button @click="createTag">新增标签</button>
+    </div>
     <ul class="current">
-      <li>
-        <Icon name="food"></Icon>
-        <span>餐饮</span>
-      </li>
-      <li>
-        <Icon name="shopping"></Icon>
-        <span>购物</span>
-      </li>
-      <li>
-        <Icon name="live"></Icon>
-        <span>居住</span>
-      </li>
-      <li>
-        <Icon name="traffic"></Icon>
-        <span>交通</span>
-      </li>
       <li v-for="tag in List" :key="tag.id"
-          :class="{selected:selectedTags.indexOf(tag.id)>=0}"
-          @click="toggle(tag.id)">
-        <Icon :name="tag.name" />
-        <span>{{tag.name}}</span>
-      </li>
-      <li @click="createTag">
-        <Icon name="add"></Icon>
-        <span>新增</span>
+          :class="{selected: selectedTags.indexOf(tag.name)>=0}"
+          @click="toggle(tag.name)">{{tag.name}}
       </li>
     </ul>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -42,12 +24,12 @@ export default class Tags extends mixins(TagHelper) {
   @Prop({required:true})  List!: []
   selectedTags: string[]= [];
 
-  toggle(id:string){
-    const index = this.selectedTags.indexOf(id);
+  toggle(name:string){
+    const index = this.selectedTags.indexOf(name);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {
-      this.selectedTags.push(id);
+      this.selectedTags.push(name);
     }
     this.$emit('update:value',this.selectedTags)
   }
@@ -56,47 +38,41 @@ export default class Tags extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-
-@media (min-width: 500px) {
   .tags {
+    background: white;
+    font-size: 14px;
+    padding: 16px;
+    flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 966.7px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.tags {
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .current {
-    display: flex;
-    flex-wrap: wrap;
-
-    li {
+    flex-direction: column-reverse;
+    > .current {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px 40.8px;
-
-      &.selected {
-        background: black;
-        color: white;
+      flex-wrap: wrap;
+      > li {
+        $bg: #D9D9D9;
+        background: $bg;
+        $h: 24px;
+        height: $h;
+        line-height: $h;
+        border-radius: $h/2;
+        padding: 0 16px;
+        margin-right: 12px;
+        margin-top: 4px;
+        &.selected {
+          background: darken($bg, 50%);
+          color: white;
+        }
       }
     }
-
-    .icon {
-      background: rgb(245, 245, 245);
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
+    > .new {
+      padding-top: 16px;
+      button {
+        background: transparent;
+        border: none;
+        color: #999;
+        border-bottom: 1px solid;
+        padding: 0 4px;
+      }
     }
   }
-}
 </style>

@@ -6,10 +6,6 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="金额"
-                placeholder="请输入标金额"/>
-      <FormItem field-name="日期"
-                placeholder="请输入标日期"/>
       <FormItem :value="currentTag.name"
                 @update:value="update"
                 field-name="备注"
@@ -40,8 +36,13 @@ export default class EditLabel extends Vue {
    get currentTag(){
      return this.$store.state.currentTag;
    }
+   get recordList(){
+     return this.$store.state.recordList
+   }
+
   created() {
     const id = this.$route.params.id;
+    this.$store.commit('fetchRecords')
     this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag',id)
     if (!this.currentTag) {
@@ -96,6 +97,9 @@ export default class EditLabel extends Vue {
 .form-wrapper {
   background: white;
   margin-top: 8px;
+  ::v-deep .formItem{
+    border-bottom: 1px solid #e6e6e6;
+  }
 }
 
 .button-wrapper {
