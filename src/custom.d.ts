@@ -1,3 +1,7 @@
+type Tag = {
+    id: string
+    name: string
+}
 type RecordItem = {
     tags: Tag[]
     type: string
@@ -6,14 +10,11 @@ type RecordItem = {
     createAt?: string
 }
 type RootStore = {
-    recordList: RecordItem[],
+    recordList: RecordItem[]
     tagList: Tag[]
     currentTag?: Tag
 }
-type Tag = {
-    id: string
-    name: string
-}
+
 type TagListModel = {
     data: Tag[]
     fetch: () => Tag[]

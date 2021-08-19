@@ -1,10 +1,10 @@
 <template>
   <div>
-    {{recordList}}
+
     <section class="content">
       <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="tags-wrapper">
-        <Tags/>
+        <Tags :List="tagList" @update:value="onUpdateTags"/>
       </div>
       <div>
         <div class="notes">
@@ -34,6 +34,9 @@ import recordTypeList from '@/constants/recordTypeList';
   components: {FormItem, NavCancel, NumberPad, Tags, Tabs},
 })
 export default class Money extends Vue {
+  get tagList(){
+    return this.$store.state.tagList
+  }
   recordTypeList=recordTypeList
   get recordList(){
     return this.$store.state.recordList
@@ -41,7 +44,13 @@ export default class Money extends Vue {
   record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
   created(){
     this.$store.commit('fetchRecords')
+    this.$store.commit('fetchTags')
   }
+
+  onUpdateTags(tags:Tag[]){
+    this.record.tags=tags
+  }
+
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }

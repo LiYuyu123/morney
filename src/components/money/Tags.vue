@@ -17,7 +17,7 @@
         <Icon name="traffic"></Icon>
         <span>交通</span>
       </li>
-      <li v-for="tag in tagList" :key="tag.id"
+      <li v-for="tag in List" :key="tag.id"
           :class="{selected:selectedTags.indexOf(tag.id)>=0}"
           @click="toggle(tag.id)">
         <Icon :name="tag.name" />
@@ -32,23 +32,22 @@
 </template>
 
 <script lang="ts">
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/tagHelper';
 
 
 @Component
 export default class Tags extends mixins(TagHelper) {
-   get tagList(){
-     return this.$store.state.tagList
-   }
-  selectedTags: string[] = [];
-  toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
+  @Prop({required:true})  List!: []
+  selectedTags: string[]= [];
+
+  toggle(id:string){
+    const index = this.selectedTags.indexOf(id);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {
-      this.selectedTags.push(tag);
+      this.selectedTags.push(id);
     }
     this.$emit('update:value',this.selectedTags)
   }
