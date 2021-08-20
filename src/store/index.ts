@@ -7,6 +7,7 @@ import router from '@/router';
 Vue.use(Vuex);
 
 
+
 const store = new Vuex.Store({
     state: {
         recordList: [],
@@ -14,6 +15,7 @@ const store = new Vuex.Store({
         createRecordError:null,
         createTagError:null,
         currentTag: undefined,
+        updateMessage: false
     } as RootStore,
     mutations: {
         setCurrentTag(state, id: string) {
@@ -61,7 +63,9 @@ const store = new Vuex.Store({
                 } else {
                     const tag = state.tagList.filter(item => item.id === id)[0];
                     tag.name = name;
+                    state.updateMessage=true
                     store.commit('saveTags')
+
                 }
             }
         },

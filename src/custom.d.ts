@@ -15,6 +15,7 @@ type RootStore = {
     createRecordError:Error | null
     createTagError:Error |null
     currentTag?: Tag
+    updateMessage:boolean
 }
 
 type TagListModel = {

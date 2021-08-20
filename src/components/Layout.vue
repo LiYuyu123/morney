@@ -1,6 +1,6 @@
 <template>
-  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
-    <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
+  <div class="layout-wrapper">
+    <div class="content">
       <slot/>
     </div>
     <Nav/>
@@ -8,10 +8,14 @@
 </template>
 
 <script lang="ts">
-export default {
-  props: ['classPrefix'],
-  name: 'Layout'
-};
+import Vue from 'vue';
+
+
+
+export default class Layout extends Vue {
+
+}
+
 </script>
 <style lang="scss" scoped>
 .layout-wrapper {
@@ -19,6 +23,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
+
 .content {
   flex-grow: 1;
   overflow: auto;

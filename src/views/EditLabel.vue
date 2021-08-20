@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :style="{height:h+'px'}">
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click="goBack"/>
       <span class="title">编辑</span>
@@ -33,44 +33,51 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem, Labels},
 })
 export default class EditLabel extends Vue {
-   get currentTag(){
-     return this.$store.state.currentTag;
-   }
-   get recordList(){
-     return this.$store.state.recordList
-   }
+  h = document.body.clientHeight;
+
+  get currentTag() {
+    return this.$store.state.currentTag;
+  }
+
+  get recordList() {
+    return this.$store.state.recordList;
+  }
 
   created() {
     const id = this.$route.params.id;
-    this.$store.commit('fetchRecords')
+    this.$store.commit('fetchRecords');
     this.$store.commit('fetchTags');
-    this.$store.commit('setCurrentTag',id)
+    this.$store.commit('setCurrentTag', id);
     if (!this.currentTag) {
       this.$router.replace('/404');
     }
   }
 
   update(name: string) {
-    if(name===''){
-      return window.alert('名字不能为空')
+    if (name === '') {
+      return window.alert('名字不能为空');
     }
     if (this.currentTag) {
-      this.$store.commit('updateTag',{id:this.currentTag.id,name})
+      this.$store.commit('updateTag', {id: this.currentTag.id, name});
     }
   }
 
   remove() {
-     if (this.currentTag) {
-        this.$store.commit('removeTag',this.currentTag.id)
-     }
+    if (this.currentTag) {
+      this.$store.commit('removeTag', this.currentTag.id);
+    }
   }
 
   save() {
-    if(this.currentTag)
-    this.$router.back();
+    if(this.$store.state.updateMessage===true){
+      this.$router.back();
+    }
   }
+
   goBack() {
-    this.$router.back();
+    if(this.$store.state.updateMessage===true){
+      this.$router.back();
+    }
   }
 }
 </script>
@@ -101,7 +108,8 @@ export default class EditLabel extends Vue {
 .form-wrapper {
   background: white;
   margin-top: 8px;
-  ::v-deep .formItem{
+
+  ::v-deep .formItem {
     border-bottom: 1px solid #e6e6e6;
   }
 }
