@@ -51,6 +51,9 @@ export default class EditLabel extends Vue {
   }
 
   update(name: string) {
+    if(name===''){
+      return window.alert('名字不能为空')
+    }
     if (this.currentTag) {
       this.$store.commit('updateTag',{id:this.currentTag.id,name})
     }
@@ -63,6 +66,7 @@ export default class EditLabel extends Vue {
   }
 
   save() {
+    if(this.currentTag)
     this.$router.back();
   }
   goBack() {

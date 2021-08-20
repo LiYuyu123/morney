@@ -12,6 +12,7 @@ type RecordItem = {
 type RootStore = {
     recordList: RecordItem[]
     tagList: Tag[]
+    createRecordError:Error | null
     currentTag?: Tag
 }
 

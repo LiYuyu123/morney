@@ -3,13 +3,13 @@
     <section class="content">
       <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="tags-wrapper">
-        <Tags :List="tagList" @update:value="onUpdateTags"/>
+        <Tags @update:value="record.tags=$event"/>
       </div>
       <div>
         <div class="notes">
           <FormItem field-name="备注"
                     placeholder="写点备注吧"
-                    @update:value="onUpdateNotes"
+                    :value.sync="record.notes"
           />
         </div>
         <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
@@ -33,9 +33,6 @@ import recordTypeList from '@/constants/recordTypeList';
   components: {FormItem, NavCancel, NumberPad, Tags, Tabs},
 })
 export default class Money extends Vue {
-  get tagList(){
-    return this.$store.state.tagList
-  }
   recordTypeList=recordTypeList
   get recordList(){
     return this.$store.state.recordList
@@ -43,11 +40,6 @@ export default class Money extends Vue {
   record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
   created(){
     this.$store.commit('fetchRecords')
-    this.$store.commit('fetchTags')
-  }
-
-  onUpdateTags(tags:string[]){
-    this.record.tags=tags
   }
 
   onUpdateNotes(value: string) {
@@ -59,7 +51,14 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
+    if(!this.record.tags ||this.record.tags.length===0){
+      return window.alert('请至少选择一个标签')
+    }
    this.$store.commit('createRecord',this.record)
+    if(this.$store.state.createRecordError===null){
+      window.alert('保存成功')
+      this.$router.replace('/statistics')
+    }
   }
 
 }
