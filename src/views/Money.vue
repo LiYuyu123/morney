@@ -6,6 +6,14 @@
         <Tags @update:value="record.tags=$event"/>
       </div>
       <div>
+        <div class="date">
+          <FormItem field-name="日期"
+                    type="date"
+                    placeholder="写点备注吧"
+                    :value.sync="record.createAt"
+                    @update:isShow="(value) => {isShow=value}"
+          />
+        </div>
         <div class="notes">
           <FormItem field-name="备注"
                     placeholder="写点备注吧"
@@ -42,7 +50,7 @@ export default class Money extends Vue {
     return this.$store.state.recordList;
   }
 
-  record: RecordItem = {tags: [], type: '-', notes: '', amount: 0};
+  record: RecordItem = {tags: [], type: '-', notes: '', amount: 0,createAt:new Date().toISOString()};
 
   created() {
     this.$store.commit('fetchRecords');
@@ -88,5 +96,10 @@ export default class Money extends Vue {
     background: rgb(201, 201, 201);
   }
 }
-
+.date {
+  ::v-deep .formItem {
+    background: rgb(201, 201, 201);
+    border-bottom: 1px solid #e6e6e6;
+  }
+}
 </style>
