@@ -1,7 +1,7 @@
 <template>
   <Layout>
-    {{groupedList}}
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <Charts :options="x"/>
     <div>
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
@@ -31,10 +31,11 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/Clone';
+import Charts from '@/components/Charts.vue';
 
 
 @Component({
-  components: {Tabs}
+  components: {Tabs,Charts}
 
 })
 export default class Statistics extends Vue {
@@ -48,15 +49,12 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const {recordList} = this;
-    console.log(this.recordList)
     type Result= { title: string, total?: number, items: RecordItem[] }[]
     const newList = clone(recordList).filter(r=>r.type===this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
     if (newList.length === 0) {
       return [] as Result;
     }
-    console.log(newList)
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
-    console.log(result)
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
@@ -72,6 +70,28 @@ export default class Statistics extends Vue {
     })
 
     return result;
+  }
+
+  get x(){
+    return {
+      xAxis: {
+        type: 'category',
+        data: ['1', '2', '3', '4', '5', '6', '7','8','9','10',
+          '11', '12', '13', '14', '15', '16', '17','18','19','20',
+          '21', '22', '23', '24', '25', '26', '27','28','29','30']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      tooltip:{
+        show:true
+      },
+      series: [{
+        data: [150, 230, 224, 218, 135, 147, 260,150, 230, 224, 218, 135, 147, 260,150,
+          230, 224, 218, 135, 147, 260,150, 230, 224, 218, 135, 147, 260],
+        type: 'line',
+      }]
+    };
   }
 
   beautify(string: string) {
