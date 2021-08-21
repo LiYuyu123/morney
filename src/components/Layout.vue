@@ -1,6 +1,6 @@
 <template>
-  <div class="layout-wrapper">
-    <div class="content">
+  <div class="layout-wrapper" >
+    <div class="content"   >
       <slot/>
     </div>
     <Nav/>
@@ -9,9 +9,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
 
 
-
+@Component
 export default class Layout extends Vue {
 
 }

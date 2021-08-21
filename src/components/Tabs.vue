@@ -1,6 +1,7 @@
 <template>
   <div>
     <ul class="tabs" :class="{[classPrefix+'-tabs']:classPrefix}">
+      <li><Icon class="leftIcon" name="left" @click="Back"/></li>
       <li v-for="item in dataSource" :key="item.value" class="tabs-item"
           :class="{[classPrefix+'-tabs-item']:classPrefix,selected: item.value===value}"
           @click="select(item)"
@@ -27,7 +28,9 @@ export default class Tabs extends Vue {
   select(item: DataSourceItem) {
     this.$emit('update:value', item.value);
   }
-
+  Back() {
+      this.$router.back();
+  }
 }
 
 
@@ -40,7 +43,14 @@ export default class Tabs extends Vue {
   display: flex;
   text-align: center;
   font-size: 24px;
-
+  align-items: center;
+  .icon{
+    display: none;
+  }
+  .leftIcon {
+    width: 24px;
+    height: 24px;
+  }
   &-item {
     width: 50%;
     height: 50px;

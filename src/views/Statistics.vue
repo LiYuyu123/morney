@@ -1,5 +1,8 @@
 <template>
   <Layout>
+    <div class="header">
+      <div >统计</div>
+    </div>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <Charts :options="x"/>
     <div>
@@ -124,8 +127,9 @@ export default class Statistics extends Vue {
   text-align: center;
 }
 ::v-deep {
+
   .type-tabs-item {
-    background: #c4c4c4;
+    background:rgb(232, 232, 232);
     &.selected {
       background: white;
       &::after {
@@ -135,13 +139,14 @@ export default class Statistics extends Vue {
   }
 
   .interval-tabs-item {
-    height: 25px;
+    height: 30px;
     font-size: 16px;
   }
 }
 
 </style>
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -149,7 +154,17 @@ export default class Statistics extends Vue {
   justify-content: space-between;
   align-items: center;
 }
-
+.header {
+  @extend %outerShadow;
+  background: #c4c4c4;
+  div {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+}
 .title {
   @extend %item
 }

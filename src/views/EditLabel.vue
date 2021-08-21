@@ -75,9 +75,7 @@ export default class EditLabel extends Vue {
   }
 
   goBack() {
-    if(this.$store.state.updateMessage===true){
       this.$router.back();
-    }
   }
 }
 </script>
