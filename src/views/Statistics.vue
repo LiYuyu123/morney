@@ -1,16 +1,16 @@
 <template>
   <Layout>
+    {{groupedList}}
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-
     <div>
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">{{ beautify(group.title) }}<span>￥{{group.total}}</span></h3>
           <ol>
-            <li v-for="item in group.items" :key="item.id"
+            <li v-for="(item,index) in group.items" :key="index"
                 class="record"
             >
-              <span>{{ tagArray(item.tags) }}</span>
+              <span>{{tagArray(item.tags)}}</span>
               <span class="notes">{{ item.notes }}</span>
               <span>￥{{ item.amount }}</span>
             </li>
@@ -48,13 +48,16 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const {recordList} = this;
+    console.log(this.recordList)
     type Result= { title: string, total?: number, items: RecordItem[] }[]
     const newList = clone(recordList).filter(r=>r.type===this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
     if (newList.length === 0) {
       return [] as Result;
     }
-    const result:Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
-    for (let i = 0; i < newList.length; i++) {
+    console.log(newList)
+    const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    console.log(result)
+    for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
       if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
@@ -63,9 +66,11 @@ export default class Statistics extends Vue {
         result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
+
     result.map(group=>{
-      group.total=group.items.reduce((sum,item)=>sum+item.amount,0)
+      group.total=group.items.reduce((sum,item)=> sum+item.amount,0)
     })
+
     return result;
   }
 
@@ -88,9 +93,7 @@ export default class Statistics extends Vue {
 
   beforeCreate() {
     this.$store.commit('fetchRecords');
-    console.log()
   }
-
   type = '-';
   recordTypeList = recordTypeList;
 }

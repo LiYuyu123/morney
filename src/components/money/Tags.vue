@@ -20,6 +20,7 @@ import TagHelper from '@/mixins/tagHelper';
 @Component
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
+
   get tagList() {
     return this.$store.state.tagList;
   }

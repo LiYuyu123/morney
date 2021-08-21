@@ -6,8 +6,6 @@
         <input
             :type="type || 'text'"
             :value="x(value)"
-            @click="$emit('update:isShow',false)"
-            @blur="$emit('update:isShow',true)"
             @change="onValueChange($event.target.value)"
             :placeholder="this.placeholder">
       </template>

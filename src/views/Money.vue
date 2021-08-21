@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{recordList}}
     <section class="content">
       <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="tags-wrapper">
@@ -11,7 +12,6 @@
                     type="date"
                     placeholder="写点备注吧"
                     :value.sync="record.createAt"
-                    @update:isShow="(value) => {isShow=value}"
           />
         </div>
         <div class="notes">
