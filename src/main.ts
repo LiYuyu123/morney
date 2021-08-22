@@ -22,3 +22,6 @@ new Vue({
 }).$mount('#app');
 
 
+if(document.body.clientHeight>500){
+    window.alert('请用手机打开本页面，以保证浏览效果')
+}
