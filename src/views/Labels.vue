@@ -1,18 +1,21 @@
 <template>
-  <Layout>
-    <div class="head">
-      <div>明细</div>
+  <div class="container">
+  <div class="head">
+    <div>明细</div>
+  </div>
+    <div class="tagsCreateTag">
+      <div class="tags">
+        <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
+          <span>{{ tag.name }}</span>
+          <Icon name="right" />
+        </router-link>
+      </div>
+      <div class="createTag-wrapper">
+        <Button class="createTag" @click="createTag">新增标签</Button>
+      </div>
     </div>
-    <div class="tags">
-      <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
-        <span>{{ tag.name }}</span>
-        <Icon name="right" />
-      </router-link>
-    </div>
-    <div class="createTag-wrapper">
-      <Button class="createTag" @click="createTag">新增标签</Button>
-    </div>
-  </Layout>
+    <Nav class="nav"/>
+  </div>
 </template>
 
 <script lang="ts">
@@ -87,5 +90,15 @@ export default class Labels extends mixins(TagHelper) {
     padding: 16px;
     margin-top: 44-16px;
   }
+}
+.container{
+   display: flex;
+  flex-direction: column;
+  height: 100vh;
+  .tagsCreateTag{
+    flex-grow: 2;
+    overflow: auto;
+  }
+
 }
 </style>

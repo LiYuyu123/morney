@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <div class="container">
     <div class="header">
       <div>统计</div>
     </div>
@@ -7,7 +7,7 @@
     <div class="charts-wrapper" ref="chartWrapper">
       <Charts class="charts" :options="chartOptions"/>
     </div>
-    <div>
+    <div class="content">
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
@@ -26,7 +26,8 @@
         目前没有相关记录
       </div>
     </div>
-  </Layout>
+    <Nav />
+  </div>
 </template>
 
 <script lang="ts">
@@ -104,7 +105,7 @@ export default class Statistics extends Vue {
     return {
       grid: {
         left: 0,
-        right: 0
+        right: 0,
       },
       xAxis: {
         type: 'category',
@@ -240,13 +241,21 @@ export default class Statistics extends Vue {
 
 .charts {
   width: 430%;
-
   &-wrapper {
     overflow: auto;
-
+    height: 200px;
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+}
+.container{
+   display: flex;
+  flex-direction: column;
+  height:100vh ;
+  .content{
+    flex-grow: 1;
+    overflow: auto;
   }
 }
 </style>

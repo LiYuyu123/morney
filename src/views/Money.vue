@@ -65,9 +65,6 @@ export default class Money extends Vue {
 
 <style lang="scss" scoped>
 .content {
-  ::v-deep.icon {
-    display: block;
-  }
   }
   ::v-deep .formItem {
     background: rgb(201, 201, 201);
@@ -82,6 +79,6 @@ export default class Money extends Vue {
   flex-direction: column;
 }
 .container{
-  top: 0;
+
 }
 </style>
