@@ -37,7 +37,7 @@ import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/Clone';
 import Charts from '@/components/Charts.vue';
-
+import _ from'lodash'
 
 @Component({
   components: {Tabs,Charts}
@@ -77,7 +77,30 @@ export default class Statistics extends Vue {
     return result;
   }
 
+  get y(){
+    const today=new Date()
+    const array=[]
+    for (let i=0;i<=29;i++){
+      const dateString=dayjs(today).subtract(i,'day').format('YYYY-MM-DD')
+      const found=_.find(this.recordList,{createAt:dateString})
+      array.push({date:dateString,value:found ? found.amount:0})
+    }
+    array.sort((a,b)=>{
+      if(a.date>b.date){
+        return 1
+      }else  if(a.date===b.date){
+        return  0
+      }else if(a.date<b.date){
+        return -1
+      }
+    })
+    return array
+  }
+
   get x(){
+
+    const keys=this.y.map(i=>i.date)
+    const dates=this.y.map(i=>i.value)
     return {
       grid:{
         left:0,
@@ -85,9 +108,7 @@ export default class Statistics extends Vue {
       },
       xAxis: {
         type: 'category',
-        data: ['1', '2', '3', '4', '5', '6', '7','8','9','10',
-          '11', '12', '13', '14', '15', '16', '17','18','19','20',
-          '21', '22', '23', '24', '25', '26', '27','28','29','30'],
+        data:keys,
         axisTick:{
           show:false,
         },
@@ -109,8 +130,7 @@ export default class Statistics extends Vue {
         itemStyle:{
           color:'#666'
         },
-        data: [150, 230, 224, 218, 135, 147, 260,150, 230, 224, 218, 135, 147, 260,150,
-          230, 224, 218, 135, 147, 260,150, 230, 224, 218, 135, 147, 260],
+        data: dates,
         type: 'line',
          symbolSize:12
       }]
@@ -134,7 +154,8 @@ export default class Statistics extends Vue {
   }
 
   mounted(){
-    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft=9999
+    const div=(this.$refs.chartWrapper as HTMLDivElement)
+        div.scrollLeft=div.scrollWidth
   }
 
   beforeCreate() {
