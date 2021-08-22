@@ -4,7 +4,9 @@
       <div >统计</div>
     </div>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <Charts :options="x"/>
+    <div class="charts-wrapper" ref="chartWrapper">
+      <Charts class="charts" :options="x"/>
+    </div>
     <div>
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
@@ -77,22 +79,40 @@ export default class Statistics extends Vue {
 
   get x(){
     return {
+      grid:{
+        left:0,
+        right:0
+      },
       xAxis: {
         type: 'category',
         data: ['1', '2', '3', '4', '5', '6', '7','8','9','10',
           '11', '12', '13', '14', '15', '16', '17','18','19','20',
-          '21', '22', '23', '24', '25', '26', '27','28','29','30']
+          '21', '22', '23', '24', '25', '26', '27','28','29','30'],
+        axisTick:{
+          show:false,
+        },
+        axisLine:{
+          lineStyle:{color:'#666'}
+        }
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        show:false
       },
       tooltip:{
-        show:true
+        show:true,
+        formatter: '{c}',
+        position:'top'
       },
       series: [{
+        symbol:'circle',
+        itemStyle:{
+          color:'#666'
+        },
         data: [150, 230, 224, 218, 135, 147, 260,150, 230, 224, 218, 135, 147, 260,150,
           230, 224, 218, 135, 147, 260,150, 230, 224, 218, 135, 147, 260],
         type: 'line',
+         symbolSize:12
       }]
     };
   }
@@ -113,6 +133,9 @@ export default class Statistics extends Vue {
     }
   }
 
+  mounted(){
+    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft=9999
+  }
 
   beforeCreate() {
     this.$store.commit('fetchRecords');
@@ -180,5 +203,13 @@ export default class Statistics extends Vue {
   color: #999;
   overflow: auto;
 }
-
+.charts{
+  width: 430%;
+  &-wrapper{
+    overflow: auto;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+}
 </style>
