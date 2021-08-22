@@ -5,7 +5,7 @@
     </div>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <div class="charts-wrapper" ref="chartWrapper">
-      <Charts class="charts" :options="x"/>
+      <Charts class="charts" :options="chartOptions"/>
     </div>
     <div>
       <ol v-if="groupedList.length>0">
@@ -77,13 +77,13 @@ export default class Statistics extends Vue {
     return result;
   }
 
-  get y() {
+  get keyValueList() {
     const today = new Date();
     const array = [];
     for (let i = 0; i <= 29; i++) {
       const dateString = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
-      const found = _.find(this.recordList, {createAt: dateString});
-      array.push({key: dateString, value: found ? found.amount : 0});
+      const found = _.find(this.groupedList, {title: dateString});
+      array.push({key: dateString, value: found ? found.total : 0});
     }
     array.sort((a, b) => {
       if (a.key > b.key) {
@@ -97,10 +97,10 @@ export default class Statistics extends Vue {
     return array;
   }
 
-  get x() {
+  get chartOptions() {
 
-    const keys = this.y.map(i => i.key);
-    const dates = this.y.map(i => i.value);
+    const keys = this.keyValueList.map(i => i.key);
+    const dates = this.keyValueList.map(i => i.value);
     return {
       grid: {
         left: 0,
